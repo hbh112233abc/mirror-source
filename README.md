@@ -5,7 +5,7 @@
 ## 安装
 
 ```shell
-pip install mirror_source
+pip install mirror-source
 ```
 
 ## 使用
