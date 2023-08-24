@@ -60,9 +60,9 @@ python -m mirror_source
 
   ```toml
   [[source]]
-  url = 镜像源URL
+  url = "镜像源URL"
   verify_ssl = true
-  name = 镜像源域名
+  name = "镜像源域名"
   ```
 
 - poetry 环境配置`pyproject.toml`
