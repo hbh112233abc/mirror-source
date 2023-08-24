@@ -1,0 +1,6 @@
+.chat/
+.vscode/
+.venv/
+poetry.lock
+dist/
+__pycache__
