@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 __author__ = "hbh112233abc@163.com"
 
-import json
 import os
 from pathlib import Path
 import platform
@@ -11,7 +10,7 @@ from urllib.parse import urlparse
 
 import toml
 
-import log
+from mirror_source.log import *
 
 SOURCES = [
     {"name": "清华", "url": "https://pypi.tuna.tsinghua.edu.cn/simple"},
@@ -31,16 +30,6 @@ def is_windows() -> bool:
         bool: result of checked
     """
     return platform.system() == "Windows"
-
-
-def sources() -> list:
-    """Get sources list from local `source.json`
-
-    Returns:
-        list: sources list
-    """
-    with open(Path(__file__).parent / "source.json", "r", encoding="utf-8") as f:
-        return json.load(f)
 
 
 def windows_pip_conf() -> Path:
@@ -90,7 +79,7 @@ def pip_conf_setting(pip_conf: Path, url: str) -> bool:
             conf.write(f)
         return True
     except Exception as e:
-        log.error(str(e))
+        error(str(e))
         return False
 
 
@@ -175,7 +164,7 @@ def domain(url: str) -> str:
 def main():
     res = SOURCES
     options = [f"[{x['name']}]({x['url']})" for x in res]
-    selected = log.ask("请选择要设置的镜像源", options, default="0")
+    selected = ask("请选择要设置的镜像源", options, default="0")
     source = res[int(selected)]
     try:
         result = pip_global_setting(source["url"])
@@ -188,10 +177,10 @@ def main():
         if not result:
             raise Exception("pyproject.toml setting failed")
 
-        log.success(f"Success setting source: {source['url']}")
+        success(f"Success setting source: {source['url']}")
     except Exception as e:
-        log.error(e)
+        error(e)
 
 
-if __name__ == "__main__":
+if __name__ == "mirror_source":
     main()
