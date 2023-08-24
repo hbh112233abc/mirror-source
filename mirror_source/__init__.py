@@ -180,7 +180,3 @@ def main():
         success(f"Success setting source: {source['url']}")
     except Exception as e:
         error(e)
-
-
-if __name__ == "mirror_source":
-    main()
